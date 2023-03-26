@@ -12,16 +12,16 @@
                     <div class="flex flex-wrap lg:flex-nowrap mb-6 w-full">
                         <div class="lg:mr-6 w-full">
                             <label class="font-montserrat">Product Name</label>
-                            <input required type="text" :value="data && data.title" @input="title = $event.target.value" class="border-b border-b-slate-800 rounded-none px-4 font-montserrat text-xl text-slate-900 h-fit py-4 w-full outline-none">
+                            <input required type="text" :value="data && data.title" ref="title" @input="title = $event.target.value" class="border-b border-b-slate-800 rounded-none px-4 font-montserrat text-xl text-slate-900 h-fit py-4 w-full outline-none">
                         </div>
                         <div class="w-full">
                             <label class="font-montserrat">Product Price</label>
-                            <input required type="text" :value="data && data.price" @input="price = $event.target.value" class="border-b border-b-slate-800 rounded-none px-4 font-montserrat text-xl text-slate-900 h-fit py-4 w-full outline-none">
+                            <input required type="text" :value="data && data.price" ref="price" @input="price = $event.target.value" class="border-b border-b-slate-800 rounded-none px-4 font-montserrat text-xl text-slate-900 h-fit py-4 w-full outline-none">
                         </div>
                     </div>
                     <div class="w-full">
                         <label class="font-montserrat">Product Description</label>
-                        <textarea required :value="data && data.description" @input="description = $event.target.value" class="border-b border-b-slate-800 rounded-none px-4 font-montserrat text-xl text-slate-900 h-fit py-4 w-full outline-none"></textarea>
+                        <textarea required :value="data && data.description" ref="description" @input="description = $event.target.value" class="border-b border-b-slate-800 rounded-none px-4 font-montserrat text-xl text-slate-900 h-fit py-4 w-full outline-none"></textarea>
                     </div>
                 </div>
                 <button
@@ -54,17 +54,16 @@ export default {
         title: '',
         description: '',
         price: '',
-        id: ''
+        id: 20
     }),
     methods: {
         closeOverlay() {
-            this.title = '';
-            this.description = '';
-            this.price = '';
+            this.$refs.title.value = '';
+            this.$refs.description.value = '';
+            this.$refs.price.value = '';
             this.$emit('emitCloseModal', false);
         },
         submitUpdatedValues() {
-            this.id = this.lists.products.length;
             this.id += 1;
             this.$emit('emitModalValues', 
                 {
